@@ -1,0 +1,160 @@
+@charset "utf-8";
+@mixin ellips {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin padding-hori {
+    padding: 0 .3rem;
+}
+
+@mixin margin-hori {
+    margin: 0 .3rem;
+}
+
+@mixin no-last-border {
+    &:last-child {
+        border: none;
+    }
+}
+
+@mixin flex {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+@mixin flex-box {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+@mixin flex-align {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+@mixin flex-justify-between {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+@mixin flex-justify-around {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+}
+
+@mixin flex-justify-center {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+@mixin flex-center {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+@mixin flex-around-center {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: space-around;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+@mixin both-ends {
+    .left {
+        float: left;
+    }
+    .right {
+        float: right;
+    }
+}
+
+@mixin overflow {
+    overflow: hidden;
+}
+
+@mixin box-shadow {
+    -webkit-box-shadow: 0 0 .16rem #cccccc;
+    box-shadow: 0 0 .16rem #cccccc;
+}
+
+@mixin gradbg-tb($top, $bottom) {
+    background: -webkit-gradient(linear, left top, left bottom, from($top), to($bottom));
+    background: linear-gradient(to bottom, $top, $bottom);
+}
+
+@mixin gradbg-lr() {
+    background: -webkit-gradient(linear, left top, left bottom, from(#ff7b3d), to(#f25d35));
+    background: linear-gradient(to bottom, #ff7b3d, #f25d35);
+}
+
+@mixin placeholder($color) {
+    input::-webkit-input-placeholder {
+        /* WebKit browsers */
+        color: $color;
+    }
+    input:-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: $color;
+    }
+    input::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: $color;
+    }
+    input:-ms-input-placeholder {
+        /* Internet Explorer 10+ */
+        color: $color;
+    }
+}
+
+@mixin com-grad-btn($width, $height, $font) {
+    display: block;
+    margin: 0 auto;
+    width: $width;
+    height: $height;
+    line-height: .88rem;
+    text-align: center;
+    border-radius: .44rem;
+    color: #fff;
+    font-size: $font;
+    @include gradbg-tb(#ff4df0, #42b1ff);
+}
+
+@mixin perfect-center() {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateY(-50%) translateX(-50%);
+    -moz-transform: translateY(-50%) translateX(-50%);
+    transform: translateY(-50%) translateX(-50%);
+}

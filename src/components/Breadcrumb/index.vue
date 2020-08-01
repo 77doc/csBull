@@ -37,7 +37,7 @@ export default {
       const first = matched[0]
 
       if (!this.isDashboard(first)) {
-        matched = [{ path: '/dashboard', meta: { title: 'Dashboard' }}].concat(matched)
+        matched = [{ path: '/dashboard', meta: { title: '首页' }}].concat(matched)
       }
 
       this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
@@ -57,11 +57,22 @@ export default {
     },
     handleLink(item) {
       const { redirect, path } = item
+      console.log(redirect);
+      console.log(path);
+      console.log(item);
       if (redirect) {
+        const to = redirect.split('/')[redirect.split('/').length-1]
+        this.$router.push(to)
+      }else{
+        this.$router.push(path)
+      }
+      
+      /* if (redirect) {
         this.$router.push(redirect)
         return
       }
-      this.$router.push(this.pathCompile(path))
+      this.$router.push(this.pathCompile(path)) */
+      
     }
   }
 }

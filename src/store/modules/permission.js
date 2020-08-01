@@ -1,69 +1,55 @@
 import { asyncRoutes, constantRoutes } from '@/router'
-
-/**
- * Use meta.role to determine if the current user has permission
- * @param roles
- * @param route
- */
-function hasPermission(roles, route) {
-  if (route.meta && route.meta.roles) {
-    return roles.some(role => route.meta.roles.includes(role))
-  } else {
-    return true
-  }
-}
-
-/**
- * Filter asynchronous routing tables by recursion
- * @param routes asyncRoutes
- * @param roles
- */
-export function filterAsyncRoutes(routes, roles) {
-  const res = []
-
-  routes.forEach(route => {
-    const tmp = { ...route }
-    if (hasPermission(roles, tmp)) {
-      if (tmp.children) {
-        tmp.children = filterAsyncRoutes(tmp.children, roles)
-      }
-      res.push(tmp)
-    }
-  })
-
-  return res
-}
+import Layout from '@/layout'
 
 const state = {
-  routes: [],
-  addRoutes: []
+    routes: [],
+    addRoutes: []
 }
 
 const mutations = {
-  SET_ROUTES: (state, routes) => {
-    state.addRoutes = routes
-    state.routes = constantRoutes.concat(routes)
-  }
+    SET_ROUTES: (state, routes) => {
+        state.addRoutes = routes
+        state.routes = constantRoutes.concat(routes)
+    },
+    CLEAR_ROUTES: state => {
+        state.routes = []
+    }
 }
 
 const actions = {
-  generateRoutes({ commit }, roles) {
-    return new Promise(resolve => {
-      let accessedRoutes
-      if (roles.includes('admin')) {
-        accessedRoutes = asyncRoutes || []
-      } else {
-        accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
-      }
-      commit('SET_ROUTES', accessedRoutes)
-      resolve(accessedRoutes)
+    generateRoutes({ commit }, asyncRoutes) {
+        let accessedRoutes
+        accessedRoutes = mapComponent(asyncRoutes)
+        commit('SET_ROUTES', accessedRoutes)
+        return accessedRoutes
+    },
+    clearRoutes({ dispatch, state, commit }) {
+        commit('CLEAR_ROUTES')
+    },
+}
+
+// 遍历asyncRoutes，将component替换
+//asyncRoutes:后台返回的路由
+function mapComponent(asyncRoutes) {
+    const accessedRouters = asyncRoutes
+    accessedRouters.forEach(route => {
+
+        if (route.component != 'Layout') {
+            route.component = require('@/views' + route.component).default
+        } else { //Layout组件特殊处理
+            route.component = Layout
+        }
+        if (route.children && route.children.length) {
+            mapComponent(route.children)
+        }
     })
-  }
+    console.log(accessedRouters);
+    return accessedRouters
 }
 
 export default {
-  namespaced: true,
-  state,
-  mutations,
-  actions
+    namespaced: true,
+    state,
+    mutations,
+    actions
 }

@@ -55,6 +55,7 @@
 
 <script>
 import { fetchList } from '@/api/article'
+import { queryPartnerChoiceList } from '@/api/user'
 
 export default {
   filters: {
@@ -87,6 +88,7 @@ export default {
   },
   created() {
     this.getList()
+    this._queryPartnerChoiceList()
   },
   methods: {
     getList() {
@@ -95,6 +97,12 @@ export default {
       fetchList(this.listQuery).then(response => {
         this.list = response.data.items
         this.loading = false
+      })
+    },
+    _queryPartnerChoiceList(){
+      queryPartnerChoiceList().then(res => {
+        console.log(res);
+        
       })
     }
   }

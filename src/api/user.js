@@ -1,24 +1,32 @@
 import request from '@/utils/request'
 
-export function login(data) {
-  return request({
-    url: '/vue-element-admin/user/login',
-    method: 'post',
-    data
-  })
+export function login(params) {
+    return request({
+        url: '/authority/user/login',
+        method: 'post',
+        params
+    })
 }
 
-export function getInfo(token) {
-  return request({
-    url: '/vue-element-admin/user/info',
-    method: 'get',
-    params: { token }
-  })
+export function getInfo(params) {
+    return request({
+        url: '/authority/user/getUserMenu',
+        method: 'get',
+        params
+    })
 }
 
 export function logout() {
-  return request({
-    url: '/vue-element-admin/user/logout',
-    method: 'post'
-  })
+    return request({
+        url: '/authority/user/logout',
+        method: 'get',
+    })
+}
+
+export function queryPartnerChoiceList(params) {
+    return request({
+        url: '/systemConfig/partner/queryPartnerChoiceList',
+        method: 'GET',
+        params
+    })
 }
