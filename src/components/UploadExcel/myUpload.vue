@@ -1,6 +1,6 @@
 <template>
   <span>
-    <input ref="excel-upload-input" class="excel-upload-input" type="file" accept=".xlsx, .xls, .zip" @change="handleClick">
+    <input ref="excel-upload-input" class="excel-upload-input" type="file" accept=".xlsx, .xls, .zip, .pdf" @change="handleClick">
       <el-button :disabled='disabled' size="mini" type="primary" @click="handleUpload">
         {{btnName}}
       </el-button>

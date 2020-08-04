@@ -10,7 +10,7 @@
       highlight-current-row
       style="width: 100%;"
     >
-      <el-table-column label="数据ID" prop='logId' :sortable="true" align="center" width="80">
+      <el-table-column label="数据ID" prop='logId' :sortable="true" align="center">
         <template slot-scope="{row}">
           <span>{{ row.logId }}</span>
         </template>
@@ -30,9 +30,16 @@
           <span>{{ row.operationTypeDesc }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="文件地址" min-width="150px" align="center">
+      <el-table-column label="文件地址" min-width="200px" align="center">
         <template slot-scope="{row}">
-          <a traget='_blank' style="text-decoration: underline;color: #1890ff;" :href='row.url'>{{ row.url }}</a>
+          <router-link tag="a" 
+            v-if="row.url && row.url.indexOf('xls') > -1"
+              style="text-decoration: underline;color: #1890ff;"
+             target="_blank"
+             :to="{ path: '/iframe', query: {url: row.url} }">
+             {{ row.url }}
+        </router-link>
+         <a v-else traget='_blank' style="text-decoration: underline;color: #1890ff;" :href='row.url'>{{ row.url }}</a>
         </template>
       </el-table-column>
       <el-table-column label="当前操作人" width="110px" align="center">
@@ -40,7 +47,7 @@
           <span style="color:red;">{{ row.currentAuditor }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="本节点审批操作描述" width="110px" align="center">
+      <el-table-column label="本节点审批操作描述" width="150px" align="center">
         <template slot-scope="{row}">
           <span style="color:red;">{{ row.auditOperationTypeDesc }}</span>
         </template>
@@ -83,7 +90,14 @@ export default {
   created() {
   },
   methods: {
-    
+    topreview(url){
+      this.$router.push({
+        path:'/iframe',
+        query:{
+          url:url
+        }
+      })
+    }
    
   }
 }

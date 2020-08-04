@@ -53,6 +53,13 @@ export const constantRoutes = [{
             meta: { title: '首页', icon: 'el-icon-edit-outline' }
         }]
     },
+    {
+        path: '/iframe',
+        component: () =>
+            import ('@/views/dataReport/components/iframe.vue'),
+        hidden: true
+    },
+
     /* {
         path: '*',
         component: Layout,
